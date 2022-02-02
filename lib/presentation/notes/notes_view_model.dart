@@ -1,16 +1,16 @@
-import 'package:flutter/widgets.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:note_clean_architecture/domain/model/note.dart';
 import 'package:note_clean_architecture/domain/repository/note_repository.dart';
 
 import 'notes_event.dart';
+import 'notes_state.dart';
 
 class NotesViewModel with ChangeNotifier {
   final NoteRepository repository;
 
-  List<Note> _notes = [];
+  NotesState _state = NotesState(notes: []);
 
-  UnmodifiableListView<Note> get notes => UnmodifiableListView(_notes);
+  NotesState get state => _state;
 
   Note? _recentlyDeletedNote;
 
@@ -26,7 +26,7 @@ class NotesViewModel with ChangeNotifier {
 
   Future<void> _loadNotes() async {
     List<Note> notes = await repository.getNotes();
-    _notes = notes;
+    _state = state.copyWith(notes: notes);
     notifyListeners();
   }
 
