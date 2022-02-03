@@ -6,7 +6,10 @@ import 'package:provider/provider.dart';
 
 void main() async {
   // 플랫폼 채널의 위젯 바인딩을 보장.
+  // 라이브러리 등에서 실행 초기 Future로 초기화해야 하는 상황에서 필요.
+
   WidgetsFlutterBinding.ensureInitialized();
+
   final providers = await getProviders();
   runApp(
     MultiProvider(
