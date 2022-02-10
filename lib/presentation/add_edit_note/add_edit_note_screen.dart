@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 
 class AddEditNoteScreen extends StatefulWidget {
   final Note? note;
+
   const AddEditNoteScreen({Key? key, this.note}) : super(key: key);
 
   @override
