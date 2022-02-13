@@ -1,16 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:note_clean_architecture/domain/model/note.dart';
-import 'package:note_clean_architecture/domain/use_case/add_note_use_case.dart';
-import 'package:note_clean_architecture/domain/use_case/delete_note_use_case.dart';
-import 'package:note_clean_architecture/domain/use_case/get_notes_use_case.dart';
+import 'package:note_clean_architecture/domain/use_case/use_casas.dart';
 
 import 'notes_event.dart';
 import 'notes_state.dart';
 
 class NotesViewModel with ChangeNotifier {
-  final GetNotesUseCase getNotes;
-  final DeleteNoteUseCase deleteNote;
-  final AddNoteUseCase addNote;
+  final UseCases useCases;
 
   NotesState _state = NotesState(notes: []);
 
@@ -18,11 +14,7 @@ class NotesViewModel with ChangeNotifier {
 
   Note? _recentlyDeletedNote;
 
-  NotesViewModel(
-    this.getNotes,
-    this.deleteNote,
-    this.addNote,
-  ) {
+  NotesViewModel(this.useCases) {
     _loadNotes();
   }
 
@@ -35,21 +27,21 @@ class NotesViewModel with ChangeNotifier {
   }
 
   Future<void> _loadNotes() async {
-    List<Note> notes = await getNotes.call();
+    List<Note> notes = await useCases.getNotes.call();
 
     _state = state.copyWith(notes: notes);
     notifyListeners();
   }
 
   Future<void> _deleteNote(Note note) async {
-    await deleteNote(note);
+    await useCases.deleteNote(note);
     _recentlyDeletedNote = note;
     await _loadNotes();
   }
 
   Future<void> _restoreNote() async {
     if (_recentlyDeletedNote != null) {
-      await addNote(_recentlyDeletedNote!);
+      await useCases.addNote(_recentlyDeletedNote!);
       _recentlyDeletedNote = null;
 
       _loadNotes();
