@@ -68,11 +68,13 @@ class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          viewModel.onEvent(AddEditNoteEvent.saveNote(
-            widget.note == null ? null : widget.note!.id,
-            _titleController.text,
-            _contentsController.text,
-          ));
+          viewModel.onEvent(
+            AddEditNoteEvent.saveNote(
+              widget.note == null ? null : widget.note!.id,
+              _titleController.text,
+              _contentsController.text,
+            ),
+          );
         },
         child: const Icon(Icons.save),
       ),
