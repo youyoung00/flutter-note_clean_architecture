@@ -40,7 +40,6 @@ class MyApp extends StatelessWidget {
               backgroundColor: darkGray,
             ),
         textTheme: Theme.of(context).textTheme.apply(
-              displayColor: Colors.white,
               bodyColor: Colors.white,
             ),
       ),

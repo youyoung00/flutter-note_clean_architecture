@@ -11,7 +11,8 @@ class NotesState with _$NotesState {
   factory NotesState({
     required List<Note> notes,
     required NoteOrder noteOrder,
+    required bool isOrderSectionVisible,
   }) = _NotesState;
 
-  // factory NotesState.fromJson(Map<String,dynamic> json) => _$NotesStateFronJson(json);
+// factory NotesState.fromJson(Map<String,dynamic> json) => _$NotesStateFronJson(json);
 }
